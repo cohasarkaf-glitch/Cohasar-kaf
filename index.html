@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>COHASAR-KAF · Plateforme officielle d’inscription</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light;
+--bg:#f7f5ee;--card:#fff;--ink:#16261e;--mut:#5b6a62;--line:#dcd7c6;--green:#0f4a33;--green2:#165c41;--on:#fff;--gold:#c9a227;--goldtxt:#7a6000;--err:#b3261e;--ok:#1d7a4f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0e1612;--card:#17221c;--ink:#eef2ee;--mut:#9db0a6;--line:#2b3a32;--green:#0a3524;--green2:#1c6a4a;--on:#fff;--gold:#e0b93c;--goldtxt:#e0b93c;--err:#f2837b;--ok:#52c493}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0e1612;--card:#17221c;--ink:#eef2ee;--mut:#9db0a6;--line:#2b3a32;--green:#0a3524;--green2:#1c6a4a;--on:#fff;--gold:#e0b93c;--goldtxt:#e0b93c;--err:#f2837b;--ok:#52c493}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px}
+header{background:var(--green);color:var(--on);border-bottom:4px solid var(--gold)}
+header.bgimg{background-image:linear-gradient(rgba(8,40,28,.80),rgba(8,40,28,.58)),url(fond.jpg);background-size:cover;background-position:center bottom}
+.hlogo{display:block;height:130px;width:auto;max-width:100%;background:#fff;border-radius:14px;padding:8px;margin-bottom:16px}header{position:relative}.ill{display:none;margin:0}header.bgimg .ill{display:block;position:absolute;right:12px;bottom:6px;font-size:.7rem;color:#fff;opacity:.85}
+#lg{position:fixed;inset:0;background:var(--bg);z-index:50;overflow:auto;display:flex;align-items:center;justify-content:center;padding:18px}#lg .card{max-width:420px;width:100%;margin:0}.tabs{display:flex;gap:6px;margin-bottom:14px}.tabs button{flex:1}#lg label{margin-top:10px}
+.top{display:flex;align-items:center;gap:12px;padding:14px 0;flex-wrap:wrap}
+.logo{width:44px;height:44px;border-radius:50%;background:var(--gold);color:#1b1500;display:grid;place-items:center;font-weight:800;font-size:1.2rem;flex:none}
+.brand b{display:block;font-size:1.15rem;letter-spacing:.04em}
+.brand span{font-size:.75rem;opacity:.85}
+nav{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+nav button{background:transparent;color:var(--on);border:1px solid transparent;padding:8px 12px;border-radius:8px;font:inherit;font-size:.9rem;cursor:pointer}
+nav button.on,nav button:hover{border-color:var(--gold);color:var(--gold)}
+.hero{padding:38px 0 34px}
+.hero h1{margin:0 0 10px;font-size:clamp(1.5rem,5vw,2.2rem);line-height:1.2}
+.hero p{margin:0 0 20px;max-width:560px;opacity:.92}
+main{padding:22px 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}
+h2{margin:0 0 4px;font-size:1.15rem;color:var(--green2)}
+.sub{color:var(--mut);font-size:.9rem;margin:0 0 14px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+@media(max-width:640px){.tiles{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:12px;padding:16px;cursor:pointer;text-align:left;font:inherit;color:var(--ink)}
+.tile b{display:block;color:var(--green2);margin-bottom:4px}
+.tile span{color:var(--mut);font-size:.88rem}
+fieldset{border:0;padding:0;margin:0 0 8px}
+legend{font-weight:700;color:var(--goldtxt);margin:6px 0 10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.full{grid-column:1/-1}
+label{display:block;font-size:.86rem;font-weight:600;margin-bottom:4px}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);font:inherit}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:.88rem;margin:8px 0}
+.chk input{width:auto;margin-top:4px}
+button.p,button.a{font:inherit;font-weight:700;border:0;border-radius:10px;padding:11px 20px;cursor:pointer;background:var(--gold);color:#1b1500}
+button.a{background:transparent;color:var(--green2);border:1px solid var(--green2);padding:6px 12px;font-size:.85rem;font-weight:600}
+button:disabled{opacity:.55;cursor:not-allowed}
+.msg{padding:11px 14px;border-radius:10px;font-size:.92rem;margin:12px 0;background:color-mix(in srgb,var(--gold) 18%,transparent)}
+.msg.err{background:color-mix(in srgb,var(--err) 15%,transparent);color:var(--err)}
+.msg.ok{background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok)}
+.steps{display:flex;gap:0;margin:14px 0;flex-wrap:wrap}
+.st{flex:1;min-width:110px;text-align:center;font-size:.8rem;color:var(--mut);position:relative;padding-top:30px}
+.st:before{content:"";position:absolute;top:6px;left:50%;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:var(--line)}
+.st.done{color:var(--ink);font-weight:600}.st.done:before{background:var(--ok)}
+.st.bad:before{background:var(--err)}.st.bad{color:var(--err);font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:560px){.stats{grid-template-columns:1fr 1fr}}
+.stat{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.82rem;color:var(--mut)}
+.stat b{display:block;font-size:1.5rem;color:var(--green2)}
+.bars div{display:flex;align-items:center;gap:8px;font-size:.82rem;margin:4px 0}
+.bars i{display:block;height:10px;background:var(--gold);border-radius:5px;min-width:2px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.85rem;min-width:640px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--mut)}
+.tag{display:inline-block;padding:1px 9px;border-radius:99px;font-size:.75rem;font-weight:700;background:var(--line)}
+.tag.valide{background:var(--ok);color:#fff}.tag.refuse{background:var(--err);color:#fff}.tag.examen{background:var(--gold);color:#1b1500}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.row input,.row select{width:auto;flex:1;min-width:140px}
+dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.88rem;margin:0}dt{color:var(--mut)}dd{margin:0}
+.hide{display:none!important}
+a{color:var(--green2)}
+footer{text-align:center;color:var(--mut);font-size:.78rem;padding:14px 18px 30px}
+</style>
+</head>
+<body>
+<div id="lg"><div class="card"><img src="logo.png" alt="COHASAR-KAF" style="height:90px;display:block;margin:0 auto 10px">
+<div class="tabs"><button class="a" id="tA">Agent</button><button class="a" id="tB">Bureau</button></div>
+<div id="fA"><label for="lt">Téléphone</label><input id="lt" type="tel" placeholder="77 000 00 00" autocomplete="username"><label for="lp">Mot de passe</label><input id="lp" type="password" autocomplete="current-password"><p class="sub">Première visite ? Choisissez un mot de passe (8 caractères minimum), puis « Créer mon compte ».</p><div class="row"><button class="p" id="bIn">Se connecter</button><button class="a" id="bReg">Créer mon compte</button></div></div>
+<div id="fB" class="hide"><label for="ls">Fonction</label><select id="ls"><option value="president">Président</option><option value="secretaire">Secrétaire général</option><option value="tresorier">Trésorier général</option></select><label for="lq">Mot de passe</label><input id="lq" type="password" autocomplete="current-password"><div class="row" style="margin-top:14px"><button class="p" id="bBur">Se connecter</button></div></div>
+<div id="le" class="msg err hide"></div></div></div>
+<header class="bgimg"><div class="wrap">
+<div class="top"><div class="logo">C</div><div class="brand"><b>COHASAR-KAF</b><span>Plateforme officielle d’inscription des membres</span></div>
+<nav><button data-v="home" class="on">Accueil</button><button data-v="reg">S’inscrire</button><button data-v="mine">Mon dossier</button><button data-v="admin" class="hide">Administration</button><button data-v="cot" class="hide">Cotisations</button><button id="out" class="hide">Déconnexion</button></nav></div>
+<div class="hero" id="hero"><img class="hlogo" alt="Logo COHASAR-KAF" src="logo.png"><h1>Construisons ensemble notre avenir immobilier</h1><p>Inscrivez-vous à la Coopérative d’Habitat des Agents de la Sphère Administrative Régionale de Kaffrine et participez à un projet collectif d’accès au logement.</p><button class="p" data-go="reg">Je m’inscris</button></div>
+</div><p class="ill">Illustration non contractuelle</p></header>
+
+<main><div class="wrap">
+<div id="note" class="msg">Chargement…</div>
+
+<section id="v-home">
+<div class="card hide" id="roleReq"><h2>Membre du bureau ?</h2><p class="sub">Connecté avec votre compte, demandez votre rôle : le Président vous l’attribuera.</p><div class="row"><select id="rrole"><option value="secretaire">Secrétaire général</option><option value="tresorier">Trésorier général</option></select><button class="a" id="rsend">Envoyer la demande</button></div></div>
+<div class="tiles">
+<button class="tile" data-go="reg"><b>Inscription en ligne</b><span>Création de votre dossier</span></button>
+<button class="tile" data-go="mine"><b>Suivi des dossiers</b><span>État de votre inscription</span></button>
+<button class="tile" data-go="admin"><b>Gestion des membres</b><span>Réservé au bureau</span></button>
+</div>
+<div class="card"><h2>Qui peut adhérer ?</h2><p class="sub" style="margin:0">L’adhésion est réservée aux agents en service dans l’administration régionale de Kaffrine. Vous devrez joindre votre pièce d’identité et un justificatif de service. Votre dossier est examiné par le bureau de la coopérative.</p></div>
+</section>
+
+<section id="v-reg" class="hide">
+<div class="card"><h2>Formulaire d’adhésion</h2><p class="sub">Les champs sont obligatoires, sauf mention contraire.</p>
+<div id="done" class="msg ok hide"></div>
+<fieldset><legend>1. Identité</legend><div class="grid">
+<div><label for="prenom">Prénom(s)</label><input id="prenom" autocomplete="given-name"></div>
+<div><label for="nom">Nom</label><input id="nom" autocomplete="family-name"></div>
+<div><label for="naiss">Date de naissance</label><input id="naiss" type="date"></div>
+<div><label for="sexe">Sexe</label><select id="sexe"><option value="">Choisir</option><option>Féminin</option><option>Masculin</option></select></div>
+<div><label for="cni">N° carte d’identité nationale</label><input id="cni" inputmode="numeric"></div>
+<div><label for="tel">Téléphone (WhatsApp)</label><input id="tel" type="tel" placeholder="77 000 00 00"></div>
+<div class="full"><label for="mail">E-mail (facultatif)</label><input id="mail" type="email"></div><div><label for="lieu">Lieu de naissance</label><input id="lieu"></div><div><label for="matri">Situation matrimoniale</label><select id="matri"><option value="">Choisir</option><option>Célibataire</option><option>Marié(e)</option><option>Divorcé(e)</option><option>Veuf(ve)</option></select></div><div><label for="charge">Personnes à charge</label><input id="charge" type="number" min="0"></div><div><label for="adresse">Adresse actuelle</label><input id="adresse"></div><div><label for="urg">Personne à contacter (facultatif)</label><input id="urg"></div><div><label for="urgtel">Son téléphone (facultatif)</label><input id="urgtel" type="tel"></div></div></fieldset>
+<fieldset><legend>2. Situation professionnelle</legend><div class="grid">
+<div><label for="matr">Matricule / N° de solde</label><input id="matr"></div>
+<div><label for="statut">Statut</label><select id="statut"><option value="">Choisir</option><option>Fonctionnaire</option><option>Contractuel</option><option>Agent non fonctionnaire</option></select></div>
+<div class="full"><label for="struct">Service / structure d’affectation</label><input id="struct"></div>
+<div><label for="fonction">Grade ou fonction</label><input id="fonction"></div><div><label for="annee">Année de prise de service (facultatif)</label><input id="annee" type="number" min="1960" max="2026"></div>
+<div><label for="dept">Département</label><select id="dept"><option value="">Choisir</option><option>Kaffrine</option><option>Birkilane</option><option>Koungheul</option><option>Malem Hodar</option></select></div></div></fieldset>
+<fieldset><legend>3. Projet d’habitat</legend><div class="grid">
+<div><label for="logt">Type de projet</label><select id="logt"><option value="">Choisir</option><option>Parcelle viabilisée</option><option>Villa</option><option>Appartement</option><option>Pas de préférence</option></select></div>
+<div><label for="zone">Zone souhaitée (facultatif)</label><input id="zone"></div><div><label for="deja">Possédez-vous déjà un terrain ou logement ?</label><select id="deja"><option value="">Choisir</option><option>Non</option><option>Oui</option></select></div>
+<div class="full"><label for="obs">Observations (facultatif)</label><textarea id="obs" rows="2"></textarea></div></div></fieldset>
+<fieldset id="fsd"><legend>4. Pièces justificatives (PDF ou image, 5 Mo max)</legend><div class="grid">
+<div><label for="d_cni">Carte d’identité (recto-verso)</label><input id="d_cni" type="file" accept="image/*,application/pdf"></div>
+<div><label for="d_just">Bulletin de solde ou attestation de service</label><input id="d_just" type="file" accept="image/*,application/pdf"></div>
+<div><label for="d_photo">Photo d’identité (facultatif)</label><input id="d_photo" type="file" accept="image/*"></div></div>
+<p class="sub" id="dnote"></p></fieldset>
+<label class="chk"><input type="checkbox" id="c1"><span>Je certifie être agent en service dans l’administration régionale de Kaffrine et que les informations fournies sont exactes.</span></label>
+<label class="chk"><input type="checkbox" id="c2"><span>J’autorise la COHASAR-KAF à traiter mes données personnelles pour la gestion de mon adhésion, et j’accepte les statuts et le règlement intérieur.</span></label>
+<div id="err" class="msg err hide"></div>
+<button class="p" id="send">Envoyer ma demande</button></div>
+</section>
+
+<section id="v-mine" class="hide"><div class="card" id="mineBox"></div></section>
+
+<section id="v-admin" class="hide">
+<div class="card hide" id="rolesBox"><h2>Rôles du bureau</h2><div id="rl"></div></div>
+<div class="card"><h2>Tableau de bord du bureau</h2><p class="sub">Données confidentielles, réservées aux administrateurs.</p>
+<div class="stats"><div class="stat"><b id="s1">0</b>demandes</div><div class="stat"><b id="s2">0</b>à examiner</div><div class="stat"><b id="s3">0</b>membres validés</div><div class="stat"><b id="s4">0</b>refusées</div></div>
+<div class="grid"><div><h2 style="font-size:1rem">Par département</h2><div class="bars" id="bars"></div></div><div><h2 style="font-size:1rem">Type de projet</h2><div class="bars" id="b2"></div></div><div><h2 style="font-size:1rem">Statut professionnel</h2><div class="bars" id="b3"></div></div><div><h2 style="font-size:1rem">Sexe</h2><div class="bars" id="b4"></div></div><div class="full"><h2 style="font-size:1rem">Inscriptions par mois</h2><div class="bars" id="b5"></div></div></div><p class="sub" id="kpi" style="margin-top:12px"></p></div>
+<div class="card"><div class="row"><input id="q" placeholder="Rechercher un nom, matricule, service…"><select id="fs"><option value="">Tous les statuts</option><option value="recu">Reçues</option><option value="examen">En examen</option><option value="valide">Validées</option><option value="refuse">Refusées</option></select><button class="a" id="csv">Exporter CSV</button></div>
+<div class="tw"><table><thead><tr><th>N°</th><th>Nom</th><th>Service</th><th>Département</th><th>Date</th><th>Statut</th><th></th></tr></thead><tbody id="rows"></tbody></table></div></div>
+<div class="card hide" id="detail"></div>
+</section>
+<section id="v-cot" class="hide"><div class="card"><h2>Gestion des cotisations</h2><p class="sub">Réservé au Président et au Trésorier général. Seuls les membres validés apparaissent.</p>
+<div class="stats" style="grid-template-columns:1fr"><div class="stat"><b id="ctot">0 FCFA</b>total collecté</div></div>
+<fieldset><legend>Enregistrer un paiement</legend><div class="grid"><div class="full"><label for="cm">Membre</label><select id="cm"></select></div><div><label for="cmo">Mois concerné</label><input id="cmo" type="month"></div><div><label for="ca">Montant (FCFA)</label><input id="ca" inputmode="numeric"></div><div><label for="cmd">Mode de paiement</label><select id="cmd"><option>Espèces</option><option>Wave</option><option>Orange Money</option><option>Virement</option></select></div></div></fieldset>
+<div class="row" style="margin-top:12px"><button class="p" id="cadd">Enregistrer</button><button class="a" id="ccsv">Exporter en CSV</button></div></div>
+<div class="card"><div class="tw"><table><thead><tr><th>N°</th><th>Nom</th><th>Paiements</th><th>Total versé</th><th>Dernier mois</th></tr></thead><tbody id="crows"></tbody></table></div></div></section>
+</div></main>
+<footer>COHASAR-KAF · Kaffrine, Sénégal · Vos données sont traitées de façon confidentielle.</footer>
+
+<script>
+window.startApp=function(){
+var $=function(i){return document.getElementById(i)},db,assets,dl,uid,U,owner=false,admin=false,role="",canReq=false,R={},cot={},mine=null,list=[];
+var F=["prenom","nom","naiss","sexe","cni","tel","mail","lieu","matri","charge","adresse","urg","urgtel","matr","statut","struct","fonction","annee","dept","logt","zone","deja","obs"];
+var ST={recu:"Reçue",examen:"En examen",valide:"Validée",refuse:"Refusée"};
+function esc(s){var d=document.createElement("div");d.textContent=s==null?"":String(s);return d.innerHTML}
+function T(p,ms){return Promise.race([p,new Promise(function(r){setTimeout(function(){r(null)},ms)})])}
+function note(t,c){var n=$("note");n.textContent=t;n.className="msg "+(c||"");n.classList.toggle("hide",!t)}
+function go(v){["home","reg","mine","admin","cot"].forEach(function(x){$("v-"+x).classList.toggle("hide",x!==v)});
+ document.querySelectorAll("nav button").forEach(function(b){b.classList.toggle("on",b.dataset.v===v)});
+ $("hero").classList.toggle("hide",v!=="home");document.querySelector("header").classList.toggle("bgimg",v==="home");window.scrollTo(0,0);
+ if(v==="mine"){drawMine();refreshMine()}if(v==="admin"&&admin){loadAll();loadRoles()}if(v==="cot")loadCot()}
+document.addEventListener("click",function(e){var b=e.target.closest("[data-v],[data-go]");if(!b)return;
+ var v=b.dataset.v||b.dataset.go;if((v==="admin"&&(!admin||role==="tresorier"))||(v==="cot"&&role!=="president"&&role!=="tresorier")){note("L’espace d’administration est réservé au bureau de la coopérative.","err");return}go(v)});
+
+async function init(){
+ try{
+  if(!window.claude){note("Chargement impossible.","err");return}
+  var u=await T(claude.use("user"),10000);db=await T(claude.use("db"),10000);
+  if(!db||!u){note("Connectez-vous pour vous inscrire ou suivre votre dossier.","err");return}
+  assets=await claude.use("assets");dl=await claude.use("downloads");
+  U=u;uid=await u.id();owner=await u.isOwner();var ce=await u.canEdit();try{var rr=await db.doc("config/roles").get();R=rr.exists?rr.data():{}}catch(e){}
+  role=owner?"president":(ce&&R.secretaire===uid?"secretaire":(ce&&R.tresorier===uid?"tresorier":""));admin=!!role;canReq=ce&&!role;$("roleReq").classList.toggle("hide",!canReq);
+  document.querySelector('nav [data-v="cot"]').classList.toggle("hide",!(role==="president"||role==="tresorier"));note("");
+  document.querySelector('nav [data-v="admin"]').classList.toggle("hide",!(admin&&role!=="tresorier"));
+  $("dnote").textContent=assets?"Vos pièces ne sont visibles que par le bureau.":"Dépôt de pièces indisponible : remettez-les au bureau de la coopérative.";
+  var s=await db.doc("inscriptions/"+uid).get();if(s.exists){mine=s.data();fill()}
+ }catch(e){note("Chargement impossible. Réessayez plus tard.","err")}
+}
+function fill(){F.forEach(function(k){if(mine[k]!=null)$(k).value=mine[k]});$("c1").checked=$("c2").checked=true;
+ $("done").textContent="Votre demande est enregistrée. Vous pouvez la modifier tant qu’elle n’est pas validée.";$("done").classList.remove("hide");$("send").textContent="Mettre à jour ma demande"}
+
+async function up(id){var f=$(id).files[0];if(!f)return null;if(f.size>5*1048576)throw new Error("Fichier trop volumineux : "+f.name);
+ var r=await assets.upload(f);return {id:r.id,name:f.name}}
+
+$("send").onclick=async function(){
+ var d={},e=$("err"),btn=this;F.forEach(function(k){d[k]=$(k).value.trim()});
+ var req=["prenom","nom","naiss","sexe","cni","tel","matr","statut","struct","fonction","dept","logt","matri","adresse"],m=req.filter(function(k){return !d[k]});
+ function bad(t,el){e.textContent=t;e.classList.remove("hide");if(el)el.focus()}
+ if(!db)return bad("Plateforme non connectée.");
+ if(m.length)return bad("Merci de renseigner tous les champs obligatoires.",$(m[0]));
+ if(!/^[0-9 +]{9,16}$/.test(d.tel))return bad("Numéro de téléphone invalide.",$("tel"));
+ if(!$("c1").checked||!$("c2").checked)return bad("Vous devez cocher les deux attestations.");
+ if(mine&&mine.etat==="valide")return bad("Dossier déjà validé : contactez le bureau pour toute modification.");
+ var docs=(mine&&mine.docs)||{};
+ if(assets&&!docs.cni&&!$("d_cni").files[0])return bad("Joignez votre carte d’identité.",$("d_cni"));
+ if(assets&&!docs.just&&!$("d_just").files[0])return bad("Joignez votre justificatif de service.",$("d_just"));
+ e.classList.add("hide");btn.disabled=true;btn.textContent="Envoi en cours…";
+ try{
+  if(assets){var a=await up("d_cni"),b=await up("d_just"),c=await up("d_photo");if(a)docs.cni=a;if(b)docs.just=b;if(c)docs.photo=c}
+  d.docs=docs;d.etat=mine&&mine.etat?mine.etat:"recu";d.date=mine&&mine.date?mine.date:new Date().toISOString();
+  if(mine&&mine.motif)d.motif=mine.motif;if(mine&&mine.num)d.num=mine.num;if(mine&&mine.msgs)d.msgs=mine.msgs;if(mine&&mine.dec)d.dec=mine.dec;if(mine&&mine.avis)d.avis=mine.avis;if(mine&&mine.decby)d.decby=mine.decby;
+  await db.doc("inscriptions/"+uid).set(d);mine=d;fill();go("mine");
+ }catch(x){bad("Échec de l’envoi : "+(x&&x.message?x.message:"vérifiez votre connexion."))}
+ btn.disabled=false;btn.textContent="Mettre à jour ma demande"};
+
+function drawMine(){var b=$("mineBox");
+ if(!mine){b.innerHTML="<h2>Mon dossier</h2><p class='sub'>Vous n’avez pas encore déposé de demande.</p><button class='p' data-go='reg'>Je m’inscris</button>";return}
+ var s=mine.etat,ord=["recu","examen","valide"],i=ord.indexOf(s);
+ var st=ord.map(function(k,j){return "<div class='st"+(j<=i&&s!=="refuse"?" done":"")+"'>"+ST[k]+"</div>"}).join("");
+ if(s==="refuse")st="<div class='st done'>Reçue</div><div class='st bad'>Refusée</div>";
+ b.innerHTML="<h2>Mon dossier</h2><p class='sub'>"+esc(mine.prenom+" "+mine.nom)+(mine.num?" · Membre n° "+esc(mine.num):"")+"</p><div class='steps'>"+st+"</div>"+
+ (s==="refuse"&&mine.motif?"<div class='msg err'>Motif : "+esc(mine.motif)+"</div>":"")+
+ (s==="valide"?"<div class='msg ok'>Félicitations, votre adhésion est validée.</div>":"")+
+ (mine.msgs&&mine.msgs.length?"<h2 style='margin-top:14px'>Messages du bureau</h2>"+mine.msgs.slice().reverse().map(function(m){return "<div class='msg'><small>"+new Date(m.d).toLocaleDateString("fr-FR")+"</small><br>"+esc(m.t)+"</div>"}).join(""):"")+"<p class='sub'>Déposée le "+new Date(mine.date).toLocaleDateString("fr-FR")+"</p>"+(s==="valide"?"<button class='a' id='att'>Télécharger mon attestation</button>":"<button class='a' data-go='reg'>Modifier ma demande</button>");var at=$("att");if(at)at.onclick=function(){attest(mine)}}
+
+async function loadAll(){try{var q=await db.collection("inscriptions").get();
+ list=q.docs.map(function(s){var d=s.data();d._id=s.id;return d});list.sort(function(a,b){return String(b.date).localeCompare(String(a.date))});render()}catch(e){}}
+function render(){
+ var c=function(k){return list.filter(function(x){return x.etat===k}).length};
+ $("s1").textContent=list.length;$("s2").textContent=c("recu")+c("examen");$("s3").textContent=c("valide");$("s4").textContent=c("refuse");
+ var by={};list.forEach(function(x){by[x.dept]=(by[x.dept]||0)+1});var mx=Math.max.apply(null,Object.keys(by).map(function(k){return by[k]}).concat([1]));
+ $("bars").innerHTML=Object.keys(by).map(function(k){return "<div><span style='width:100px'>"+esc(k)+"</span><i style='width:"+Math.round(by[k]/mx*60)+"%'></i> "+by[k]+"</div>"}).join("");
+ bars("b2","logt");bars("b3","statut");bars("b4","sexe");bars("b5","_m");kpis();var q=$("q").value.toLowerCase(),fs=$("fs").value;
+ var v=list.filter(function(x){return (!fs||x.etat===fs)&&(!q||[x.prenom,x.nom,x.matr,x.struct,x.cni].join(" ").toLowerCase().indexOf(q)>-1)});
+ $("rows").innerHTML=v.map(function(x){return "<tr><td>"+esc(x.num||"–")+"</td><td>"+esc(x.prenom+" "+x.nom)+"</td><td>"+esc(x.struct)+"</td><td>"+esc(x.dept)+"</td><td>"+new Date(x.date).toLocaleDateString("fr-FR")+"</td><td><span class='tag "+esc(x.etat)+"'>"+ST[x.etat]+"</span></td><td><button class='a' data-id='"+esc(x._id)+"'>Ouvrir</button></td></tr>"}).join("")||"<tr><td colspan=7>Aucune demande.</td></tr>"}
+$("q").oninput=$("fs").onchange=render;
+$("rows").onclick=function(e){var b=e.target.closest("button");if(!b)return;open(list.filter(function(x){return x._id===b.dataset.id})[0])};
+function open(x){var D=$("detail"),dc=x.docs||{};
+ var links=Object.keys(dc).map(function(k){return "<a href='/api/file/"+esc(dc[k].id)+"' target='_blank' rel='noopener'>"+esc({cni:"Carte d’identité",just:"Justificatif",photo:"Photo"}[k])+"</a>"}).join(" · ")||"Aucune pièce";
+ D.innerHTML="<h2>"+esc(x.prenom+" "+x.nom)+"</h2><dl><dt>Naissance</dt><dd>"+esc(x.naiss)+" · "+esc(x.sexe)+"</dd><dt>CNI</dt><dd>"+esc(x.cni)+"</dd><dt>Téléphone</dt><dd>"+esc(x.tel)+" "+esc(x.mail)+"</dd><dt>Matricule</dt><dd>"+esc(x.matr)+" · "+esc(x.statut)+"</dd><dt>Poste</dt><dd>"+esc(x.fonction)+", "+esc(x.struct)+"</dd><dt>Projet</dt><dd>"+esc(x.logt)+" "+esc(x.zone)+"</dd><dt>Famille</dt><dd>"+esc(x.matri)+", "+esc(x.charge||0)+" à charge</dd><dt>Adresse</dt><dd>"+esc(x.adresse)+" · né(e) à "+esc(x.lieu)+"</dd><dt>En service depuis</dt><dd>"+esc(x.annee||"–")+"</dd><dt>Déjà propriétaire</dt><dd>"+esc(x.deja||"–")+"</dd><dt>Contact</dt><dd>"+esc(x.urg||"–")+" "+esc(x.urgtel)+"</dd><dt>Observations</dt><dd>"+esc(x.obs||"–")+"</dd><dt>Pièces</dt><dd>"+links+"</dd></dl>"+
+ ""+avisHtml(x)+"<div class='row' style='margin-top:14px'><input id='mt' placeholder='Note ou motif de refus' value='"+esc(x.motif||"")+"'><button class='a' data-a='examen'>En examen</button>"+(role==="secretaire"||owner?"<button class='a' data-a='avF'>Avis favorable</button><button class='a' data-a='avD'>Avis défavorable</button>":"")+(owner?"<button class='a' data-a='valide'>Valider</button><button class='a' data-a='refuse'>Refuser</button>":"")+"</div><div class='row'><input id='mm' placeholder='Message au membre'><button class='a' data-a='msg'>Envoyer dans son espace</button><button class='a' data-a='wa'>Par WhatsApp</button></div>";
+ D.classList.remove("hide");D.scrollIntoView({behavior:"smooth"});who();
+ D.onclick=async function(e){var b=e.target.closest("[data-a]");if(!b)return;var a=b.dataset.a,p={etat:a};if(a==="msg"||a==="wa"){var t=$("mm").value.trim();if(!t){$("mm").focus();return}if(a==="wa"){var w=String(x.tel).replace(/\D/g,"");if(w.length===9)w="221"+w;window.open("https://wa.me/"+w+"?text="+encodeURIComponent(t),"_blank");return}p={msgs:(x.msgs||[]).concat([{t:t,d:new Date().toISOString()}])};try{await db.doc("inscriptions/"+x._id).update(p);Object.assign(x,p);open(x)}catch(er){}return}if(a==="att"){attest(x);return}if(a==="avF"||a==="avD"){p={etat:x.etat==="recu"?"examen":x.etat,avis:{by:uid,val:a==="avF"?"favorable":"défavorable",note:$("mt").value.trim(),d:new Date().toISOString()}};try{await db.doc("inscriptions/"+x._id).update(p);Object.assign(x,p);render();open(x)}catch(er){}return}if((a==="valide"||a==="refuse")&&(!owner||(a==="valide"&&!x.avis&&R.secretaire))){note(owner?"Un avis du bureau est requis avant la validation.":"Seul le président peut valider ou refuser.","err");window.scrollTo(0,0);return}p.dec=new Date().toISOString();p.decby=uid;
+  if(a==="refuse"){p.motif=$("mt").value.trim();if(!p.motif){$("mt").focus();return}}
+  if(a==="valide"&&!x.num){var n=Math.max.apply(null,list.map(function(y){return parseInt(String(y.num||"0").replace(/\D/g,""))||0}).concat([0]))+1;p.num="COH-"+String(n).padStart(4,"0")}
+  var tx={examen:"Votre dossier est en cours d’examen par le bureau.",valide:"Votre adhésion est validée."+(p.num||x.num?" Numéro de membre : "+(p.num||x.num)+".":""),refuse:"Votre dossier n’a pas été retenu. Motif : "+(p.motif||"")}[a];p.msgs=(x.msgs||[]).concat([{t:tx,d:p.dec}]);try{await db.doc("inscriptions/"+x._id).update(p);Object.assign(x,p);render();open(x)}catch(er){}}}
+$("csv").onclick=async function(){if(!dl)return;var cols=F.concat(["num","etat","motif","date"]);
+ var r=[cols.join(";")].concat(list.map(function(x){return cols.map(function(k){return '"'+String(x[k]==null?"":x[k]).replace(/"/g,'""')+'"'}).join(";")}));
+ try{await dl.save({filename:"cohasar-kaf-adherents.csv",data:"\ufeff"+r.join("\n")})}catch(e){}};
+function bars(id,k){var by={};list.forEach(function(x){var v=k==="_m"?String(x.date).slice(0,7):x[k];if(v)by[v]=(by[v]||0)+1});var ks=Object.keys(by).sort();var mx=Math.max.apply(null,ks.map(function(z){return by[z]}).concat([1]));$(id).innerHTML=ks.map(function(z){return "<div><span style='width:110px'>"+esc(z)+"</span><i style='width:"+Math.round(by[z]/mx*55)+"%'></i> "+by[z]+"</div>"}).join("")||"–"}
+function kpis(){var v=list.filter(function(x){return x.etat==="valide"}).length,r=list.filter(function(x){return x.etat==="refuse"}).length,dd=list.filter(function(x){return x.dec&&(x.etat==="valide"||x.etat==="refuse")}).map(function(x){return (new Date(x.dec)-new Date(x.date))/864e5});var avg=dd.length?(dd.reduce(function(a,b){return a+b},0)/dd.length).toFixed(1)+" jours":"–";$("kpi").textContent="Taux de validation : "+(v+r?Math.round(v/(v+r)*100)+" %":"–")+" · Délai moyen de traitement : "+avg}
+async function refreshMine(){try{var s=await db.doc("inscriptions/"+uid).get();if(s.exists){mine=s.data();drawMine()}}catch(e){}}
+function avisHtml(x){var h="<div class='msg'>";h+=x.avis?"Avis du bureau : <b>"+esc(x.avis.val)+"</b> par <span data-who='"+esc(x.avis.by)+"'>…</span>"+(x.avis.note?" — "+esc(x.avis.note):""):"Aucun avis du bureau pour l’instant.";if(x.decby)h+="<br>Décision : <span data-who='"+esc(x.decby)+"'>…</span> le "+new Date(x.dec).toLocaleDateString("fr-FR");if(x.etat==="valide")h+="<br><button class='a' data-a='att' style='margin-top:8px'>Attestation d’adhésion</button>";return h+"</div>"}
+async function who(){try{var els=[].slice.call(document.querySelectorAll("[data-who]")),ids=els.map(function(e){return e.dataset.who});if(!ids.length||!U)return;var p=await U.profiles(ids);els.forEach(function(e){e.textContent=(p[e.dataset.who]&&p[e.dataset.who].name)||"un membre du bureau"})}catch(e){}}
+function attest(d){if(!dl){note("Téléchargement indisponible.","err");return}var dt=new Date(d.dec||d.date).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
+var h='<!DOCTYPE html><html lang="fr"><meta charset="utf-8"><title>Attestation '+esc(d.num)+'</title><style>body{font:17px/1.7 Georgia,serif;max-width:700px;margin:40px auto;padding:30px;border:6px double #0f4a33;color:#111}h1{text-align:center;color:#0f4a33;margin:0}h2{text-align:center;letter-spacing:.2em;margin:30px 0}.s{text-align:center;color:#8a6d00;font-size:.9rem}.sig{margin-top:60px;text-align:right}@media print{body{margin:0}}</style><body><h1>COHASAR-KAF</h1><p class="s">Coopérative d’Habitat des Agents de la Sphère Administrative Régionale de Kaffrine</p><h2>ATTESTATION D’ADHÉSION</h2><p>Le Président de la COHASAR-KAF atteste que <b>'+esc(d.prenom+" "+d.nom)+'</b>, né(e) le '+esc(d.naiss)+' à '+esc(d.lieu)+', '+esc(d.fonction)+' ('+esc(d.struct)+'), matricule '+esc(d.matr)+', est membre de la coopérative sous le numéro <b>'+esc(d.num)+'</b>, depuis le '+dt+'.</p><p>La présente attestation est délivrée pour servir et valoir ce que de droit.</p><p class="sig">Fait à Kaffrine, le '+new Date().toLocaleDateString("fr-FR")+'<br><br>Le Président<br><br><br>(signature et cachet)</p></body></html>';
+dl.save({filename:"attestation-"+d.num+".html",data:h}).catch(function(){})}
+async function loadRoles(){return;$("rolesBox").classList.remove("hide");try{var q=await db.collection("demandes").get(),rq=q.docs.map(function(x){var d=x.data();d._id=x.id;return d}),ids=rq.map(function(x){return x._id}).concat([R.secretaire,R.tresorier].filter(Boolean)),p=ids.length?await U.profiles(ids):{},nm=function(i){return (p[i]&&p[i].name)||"Membre du bureau"};
+$("rl").innerHTML="<p class='sub'>Secrétaire général : <b>"+esc(R.secretaire?nm(R.secretaire):"non attribué")+"</b> · Trésorier général : <b>"+esc(R.tresorier?nm(R.tresorier):"non attribué")+"</b></p>"+(rq.map(function(x){return "<div class='row'><span style='flex:2;min-width:180px'>"+esc(nm(x._id))+" demande : "+(x.role==="secretaire"?"Secrétaire général":"Trésorier général")+"</span><button class='a' data-rq='"+esc(x._id)+"' data-ro='"+esc(x.role)+"'>Attribuer</button></div>"}).join("")||"<p class='sub'>Aucune demande de rôle.</p>")}catch(e){}}
+$("rl").onclick=async function(e){var b=e.target.closest("[data-rq]");if(!b)return;R[b.dataset.ro]=b.dataset.rq;try{await db.doc("config/roles").set(R);loadRoles()}catch(x){note("Échec de l’attribution.","err")}};
+$("rsend").onclick=async function(){try{await db.doc("demandes/"+uid).set({role:$("rrole").value,d:new Date().toISOString()});note("Demande envoyée au Président.","ok")}catch(e){note("Échec de l’envoi.","err")}window.scrollTo(0,0)};
+async function loadCot(){try{await loadAll();var q=await db.collection("cotisations").get();cot={};q.docs.forEach(function(x){cot[x.id]=x.data()});renderCot()}catch(e){}}
+function renderCot(){var v=list.filter(function(x){return x.etat==="valide"}),tot=0;
+$("cm").innerHTML=v.map(function(x){return "<option value='"+esc(x._id)+"'>"+esc(x.num+" · "+x.prenom+" "+x.nom)+"</option>"}).join("");
+$("crows").innerHTML=v.map(function(x){var p=(cot[x._id]&&cot[x._id].pay)||[],t=p.reduce(function(a,b){return a+b.a},0);tot+=t;return "<tr><td>"+esc(x.num)+"</td><td>"+esc(x.prenom+" "+x.nom)+"</td><td>"+p.length+"</td><td>"+t.toLocaleString("fr-FR")+" FCFA</td><td>"+esc(p.length?p[p.length-1].m:"–")+"</td></tr>"}).join("")||"<tr><td colspan=5>Aucun membre validé.</td></tr>";
+$("ctot").textContent=tot.toLocaleString("fr-FR")+" FCFA"}
+$("cadd").onclick=async function(){var id=$("cm").value,m=$("cmo").value,a=parseInt($("ca").value,10);if(!id||!m||!(a>0)){note("Choisissez un membre, un mois et un montant.","err");window.scrollTo(0,0);return}
+this.disabled=true;try{var r=cot[id]||{pay:[]};r.pay=(r.pay||[]).concat([{m:m,a:a,mode:$("cmd").value,d:new Date().toISOString(),by:uid}]);await db.doc("cotisations/"+id).set(r);cot[id]=r;$("ca").value="";note("");renderCot()}catch(e){note("Échec de l’enregistrement.","err")}this.disabled=false};
+$("ccsv").onclick=async function(){if(!dl)return;var r=["numero;nom;mois;montant;mode;date"];list.forEach(function(x){((cot[x._id]&&cot[x._id].pay)||[]).forEach(function(p){r.push([x.num,x.prenom+" "+x.nom,p.m,p.a,p.mode,p.d].map(function(c){return '"'+String(c==null?"":c).replace(/"/g,'""')+'"'}).join(";"))})});try{await dl.save({filename:"cohasar-kaf-cotisations.csv",data:"\ufeff"+r.join("\n")})}catch(e){}};
+init();
+};
+</script>
+<script>
+(function(){
+var NAMES={president:"Le Président",secretaire:"Le Secrétaire général",tresorier:"Le Trésorier général"},me=null,$=function(i){return document.getElementById(i)};
+async function api(p,b){var r=await fetch("/api/"+p,{method:b?"POST":"GET",headers:b?{"content-type":"application/json"}:{},body:b?JSON.stringify(b):undefined,credentials:"same-origin"});var j={};try{j=await r.json()}catch(e){}if(!r.ok){throw new Error(j.error||"Erreur de connexion.")}return j}
+var DB={doc:function(path){return{get:async function(){var j=await api("db",{op:"get",path:path});return{exists:!!j.exists,data:function(){return j.data}}},set:function(d){return api("db",{op:"set",path:path,data:d})},update:function(d){return api("db",{op:"update",path:path,data:d})}}},
+collection:function(c){return{get:async function(){var j=await api("db",{op:"list",path:c});return{docs:j.docs.map(function(x){return{id:x.id,data:function(){return x.data}}})}}}}};
+function shrink(f){return new Promise(function(ok,ko){var im=new Image(),u=URL.createObjectURL(f);im.onload=function(){var s=Math.min(1,1600/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);c.toBlob(function(b){URL.revokeObjectURL(u);ok(b)},"image/jpeg",.8)};im.onerror=function(){ko(new Error("Image illisible."))};im.src=u})}
+function b64(b){return new Promise(function(ok,ko){var r=new FileReader();r.onload=function(){ok(String(r.result).split(",")[1])};r.onerror=ko;r.readAsDataURL(b)})}
+var AS={upload:async function(f){var b=f,t=f.type;if(/^image\//.test(t)){b=await shrink(f);t="image/jpeg"}if(b.size>3e6)throw new Error("Fichier trop volumineux (3 Mo maximum).");return api("upload",{name:f.name,type:t,data:await b64(b)})}};
+var DLS={save:async function(o){var h=/\.html$/.test(o.filename),a=document.createElement("a");a.href=URL.createObjectURL(new Blob([o.data],{type:h?"text/html;charset=utf-8":"text/csv;charset=utf-8"}));a.download=o.filename;document.body.appendChild(a);a.click();a.remove()}};
+var US={id:async function(){return me.id},canEdit:async function(){return me.role!=="agent"},isOwner:async function(){return me.role==="president"},profiles:async function(ids){var o={};ids.forEach(function(i){o[i]={name:NAMES[i]||"Agent"}});return o}};
+window.claude={use:async function(n){return({user:US,db:DB,assets:AS,downloads:DLS})[n]||null}};
+function start(m){me=m;$("lg").classList.add("hide");$("out").classList.remove("hide");window.startApp()}
+function err(t){var e=$("le");e.textContent=t;e.classList.remove("hide")}
+async function enter(p,b){try{$("le").classList.add("hide");start(await api(p,b))}catch(e){err(e.message)}}
+$("bIn").onclick=function(){enter("login",{id:$("lt").value,password:$("lp").value})};
+$("bReg").onclick=function(){enter("register",{tel:$("lt").value,password:$("lp").value})};
+$("bBur").onclick=function(){enter("login",{id:$("ls").value,password:$("lq").value})};
+$("tA").onclick=function(){$("fA").classList.remove("hide");$("fB").classList.add("hide")};
+$("tB").onclick=function(){$("fB").classList.remove("hide");$("fA").classList.add("hide")};
+$("out").onclick=async function(){try{await api("logout",{})}catch(e){}location.reload()};
+api("me").then(start).catch(function(){});
+})();
+</script>
+</body>
+</html>

@@ -2,7 +2,7 @@ import { getStore } from "@netlify/blobs";
 import crypto from "node:crypto";
 
 const E = process.env;
-const STAFF = { president: E.PWD_PRESIDENT, secretaire: E.PWD_SECRETAIRE, tresorier: E.PWD_TRESORIER };
+const STAFF = { president: E.PRESI_COHASARKAF, secretaire: E.SG_COHASARKAF, tresorier: E.TRESORIER_COHASARKAF };
 const json = (o, s = 200, h = {}) =>
   new Response(JSON.stringify(o), { status: s, headers: { "content-type": "application/json", "cache-control": "no-store", ...h } });
 const mac = (s) => crypto.createHmac("sha256", E.SESSION_SECRET || "").update(s).digest("base64url");

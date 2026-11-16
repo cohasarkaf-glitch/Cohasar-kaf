@@ -30,7 +30,7 @@ function who(req) {
 const session = (me) => json({ id: me.id, role: me.role }, 200, { "set-cookie": cookie(token(me), 43200) });
 
 export default async (req) => {
-  if (!E.SESSION_SECRET || E.SESSION_SECRET.length < 24) return json({ error: "Configuration incomplète : SESSION_SECRET manquant." }, 500);
+  if (!E.SESSION_SECRET || E.SESSION_SECRET.length < 24) return json({ error: "Configuration incomplète : MA VIE EST SI EXACTE QU'ELLE DEPASSE CELLE DE MONSIEUR THALES manquant." }, 500);
   const path = new URL(req.url).pathname.replace(/^\/api\//, "");
   const S = getStore({ name: "cohasar", consistency: "strong" });
   const post = req.method === "POST";

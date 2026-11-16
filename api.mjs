@@ -2,7 +2,7 @@ import { getStore } from "@netlify/blobs";
 import crypto from "node:crypto";
 
 const E = process.env;
-const STAFF = { president: E.PRESI_COHASARKAF, secretaire: E.SG_COHASARKAF, tresorier: E.TRESORIER_COHASARKAF };
+const STAFF = { president: E.PWD_PRESIDENT, secretaire: E.PWD_SECRETAIRE, tresorier: E.PWD_TRESORIER };
 const json = (o, s = 200, h = {}) =>
   new Response(JSON.stringify(o), { status: s, headers: { "content-type": "application/json", "cache-control": "no-store", ...h } });
 const mac = (s) => crypto.createHmac("sha256", E.SESSION_SECRET || "").update(s).digest("base64url");
@@ -30,7 +30,7 @@ function who(req) {
 const session = (me) => json({ id: me.id, role: me.role }, 200, { "set-cookie": cookie(token(me), 43200) });
 
 export default async (req) => {
-  if (!E.SESSION_SECRET || E.SESSION_SECRET.length < 24) return json({ error: "Configuration incomplète : MA VIE EST SI EXACTE QU'ELLE DEPASSE CELLE DE MONSIEUR THALES manquant." }, 500);
+  if (!E.SESSION_SECRET || E.SESSION_SECRET.length < 24) return json({ error: "Configuration incomplète : SESSION_SECRET manquant." }, 500);
   const path = new URL(req.url).pathname.replace(/^\/api\//, "");
   const S = getStore({ name: "cohasar", consistency: "strong" });
   const post = req.method === "POST";
